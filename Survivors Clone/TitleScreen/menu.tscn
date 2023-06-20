@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy7mi6ronv18x"]
+
+[ext_resource type="FontFile" uid="uid://db5wg7cx628vn" path="res://Font/tenderness.otf" id="1_lq6wx"]
+[ext_resource type="Script" path="res://TitleScreen/menu.gd" id="1_uutra"]
+[ext_resource type="Texture2D" uid="uid://e48ifuq2ixxg" path="res://Textures/Player/menu.png" id="2_i1p1p"]
+[ext_resource type="PackedScene" uid="uid://duixm1umvrl0b" path="res://Utils/basic_button.tscn" id="4_lna5x"]
+[ext_resource type="AudioStream" uid="uid://chlt0t1max74a" path="res://Audio/Music/menu.mp3" id="5_85d23"]
+
+[node name="Menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uutra")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1272.0
+offset_bottom = 648.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_i1p1p")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 13.0
+offset_top = 67.0
+offset_right = 653.0
+offset_bottom = 167.0
+theme_override_colors/font_color = Color(0.92549, 0, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("1_lq6wx")
+theme_override_font_sizes/font_size = 72
+text = "Mage & Monsters"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btn_play" parent="." instance=ExtResource("4_lna5x")]
+unique_name_in_owner = true
+process_mode = 3
+offset_left = 280.0
+offset_top = 220.0
+offset_right = 360.0
+offset_bottom = 250.0
+text = "Play"
+
+[node name="btn_exit" parent="." instance=ExtResource("4_lna5x")]
+unique_name_in_owner = true
+process_mode = 3
+offset_left = 280.0
+offset_top = 280.0
+offset_right = 360.0
+offset_bottom = 310.0
+text = "Quit"
+
+[node name="snd_menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_85d23")
+volume_db = -5.0
+autoplay = true
+
+[connection signal="click_end" from="btn_play" to="." method="_on_btn_play_click_end"]
+[connection signal="click_end" from="btn_exit" to="." method="_on_btn_exit_click_end"]

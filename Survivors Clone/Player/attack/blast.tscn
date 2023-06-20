@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxtwwmubxea1p"]
+
+[ext_resource type="Script" path="res://Player/attack/blast.gd" id="1_flqjo"]
+[ext_resource type="Texture2D" uid="uid://62nny3fd1nn1" path="res://Textures/Items/Weapons/fireblast.png" id="1_xh3g8"]
+[ext_resource type="AudioStream" uid="uid://dkyyiapb1w7nl" path="res://Audio/SoundEffect/flame.wav" id="3_o3d3t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cobnm"]
+radius = 14.0
+
+[node name="blast" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_flqjo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xh3g8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cobnm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="sound_blast" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_o3d3t")
+volume_db = 5.0
+autoplay = true
+area_mask = 4

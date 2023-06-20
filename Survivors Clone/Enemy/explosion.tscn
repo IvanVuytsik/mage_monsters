@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://biukjw0dcc83q"]
+
+[ext_resource type="Texture2D" uid="uid://dmpumuua8tje6" path="res://Textures/Enemy/bloodsplash.png" id="1_5mr6y"]
+[ext_resource type="Script" path="res://Enemy/explosion.gd" id="2_bdj12"]
+[ext_resource type="AudioStream" uid="uid://b4q21qc0x8brw" path="res://Audio/SoundEffect/enemy_death.ogg" id="2_j2eji"]
+
+[sub_resource type="Animation" id="Animation_65osm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k7a47"]
+resource_name = "explode"
+length = 0.3
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22, 0.24, 0.26, 0.28, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_grt0c"]
+_data = {
+"RESET": SubResource("Animation_65osm"),
+"explode": SubResource("Animation_k7a47")
+}
+
+[node name="Explosion" type="Sprite2D"]
+position = Vector2(-0.5, 0)
+scale = Vector2(0.975, 1)
+z_index = 1
+texture = ExtResource("1_5mr6y")
+hframes = 5
+script = ExtResource("2_bdj12")
+
+[node name="sound_expl" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_j2eji")
+pitch_scale = 0.5
+autoplay = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_grt0c")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
